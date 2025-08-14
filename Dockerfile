@@ -7,4 +7,4 @@ RUN apt update && apt install -y ttyd bash curl vim git && apt clean
 EXPOSE 10000
 
 # Use Render's $PORT environment variable
-CMD ["sh", "-c", "ttyd -p $PORT bash"]
+CMD ["sh", "-c", "ttyd -W -p $PORT bash"]
