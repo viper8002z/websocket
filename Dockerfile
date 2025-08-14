@@ -1,19 +1,10 @@
-FROM node:18-alpine
+FROM ubuntu:24.04
 
-# Install wstunnel globally
-RUN npm install -g wstunnel
+# Install dependencies
+RUN apt update && apt install -y ttyd bash curl vim git && apt clean
 
-# Set working directory
-WORKDIR /app
+# Expose the port Render uses
+EXPOSE 10000
 
-# Copy start script
-COPY start.sh .
-
-# Make script executable
-RUN chmod +x start.sh
-
-# Expose port (Render provides $PORT)
-EXPOSE 8080
-
-# Start server
-CMD ["./start.sh"]
+# Use Render's $PORT environment variable
+CMD ["sh", "-c", "ttyd -p $PORT bash"]
